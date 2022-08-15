@@ -28,8 +28,9 @@ Route::get('/user', function () {
     return view('/users/index');
 });
 
-Route::get('/user/create', [UserController::class, 'create']);
-Route::post('/user/store', [UserController::class, 'store']);
+Route::get('/products/create', [ProductController::class, 'create']);
+Route::post('/products/store', [ProductController::class, 'store']);
 
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{product}', [ProductController::class, 'show']);
+Route::delete('/products/destroy/{id}', [ProductController::class, 'destroy']);
