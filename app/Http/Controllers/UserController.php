@@ -13,6 +13,13 @@ class UserController extends Controller
     }
 
     public function store(Request $request){
+        // VALIDATE INFO
+        $validated = $request->validate([
+            'name' => 'required',
+            'mail' => 'required|email:rfc,dns',
+            'password' => 'required'
+        ]);
+
         // INSERT IN DB
         $user = new \App\Models\User();
         $user->name = $request->input('name');

@@ -3,6 +3,14 @@
 @section('content')
 <h1>create user</h1>
 
+@if($errors->any())
+    <ul>
+        @foreach($errors->all() as $error)
+            <li>{{$error}}</li>
+        @endforeach
+    </ul>
+@endif
+
 <form method="post" action="{{ url('user/store') }}">
     @csrf
     <div>
