@@ -19,9 +19,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/register', [UserController::class, 'register']);
+Route::post('/register', [UserController::class, 'store']);
+Route::get('/login', [UserController::class, 'login']);
+Route::post('/login', [UserController::class, 'handleLogin']);
+
 Route::get('/user', function () {
     return view('/users/index');
 });
+
 Route::get('/user/create', [UserController::class, 'create']);
 Route::post('/user/store', [UserController::class, 'store']);
 
