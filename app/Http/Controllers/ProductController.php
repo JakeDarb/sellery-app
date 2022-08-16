@@ -10,13 +10,22 @@ class ProductController extends Controller
     //
     public function index(){
         $products  = \DB::table('products')->get();
+        $productCategories  = \DB::table('product_categories')->get();
         $data['products'] = $products;
+        $data['categories'] = $productCategories;
         return view('products/index', $data);
     }
 
-    public function show(\App\Models\Product $product){
+    public function show(\App\Models\Product $product){  
         $data['product'] = $product;
         return view('products/show', $data);
+    }
+
+    public function byCategory(\App\Models\ProductCategory $category){
+        $products = \DB::table('products')->where('product_categories_id', $category->id)->get();
+        $data['products'] = $products;
+        $data['category'] = $category;
+        return view('products/category', $data);
     }
 
     public function create(){

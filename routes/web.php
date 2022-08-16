@@ -33,4 +33,6 @@ Route::post('/products/store', [ProductController::class, 'store']);
 
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{product}', [ProductController::class, 'show']);
+Route::get('/products/category/{category}', [ProductController::class, 'byCategory']);
 Route::delete('/products/destroy/{id}', [ProductController::class, 'destroy']);
+

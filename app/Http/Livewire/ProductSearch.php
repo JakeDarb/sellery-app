@@ -9,8 +9,10 @@ class ProductSearch extends Component
     public $search;
     public $products = [];
 
+
     public function mount(){
         $this->products = \App\Models\Product::all();
+
     }
 
     public function search(){
@@ -18,6 +20,7 @@ class ProductSearch extends Component
         ->orWhere('description', 'LIKE', "%{$this->search}%")
         ->get();
     }
+
 
     public function render()
     {
