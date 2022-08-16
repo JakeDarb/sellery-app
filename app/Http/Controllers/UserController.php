@@ -31,6 +31,16 @@ class UserController extends Controller
         return view('users/login');
     }
 
+    public function logout(Request $request){
+        Auth::logout();
+ 
+        $request->session()->invalidate();
+    
+        $request->session()->regenerateToken();
+        $request->session()->flash('message', "You're logged out");
+        return redirect('/products');
+    }
+
     public function handleLogin(Request $request){
         $credential = $request->validate([
             'email' => ['required', 'email'],
@@ -38,7 +48,8 @@ class UserController extends Controller
         ]);
 
         if(Auth::attempt($credential)){
-            echo "logged in";
+            $request->session()->flash('message', "You're logged in");
+            return redirect('/products');
         }else{
             echo "logged in failed";
         }

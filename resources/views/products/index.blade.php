@@ -1,6 +1,9 @@
 @extends('layouts/app')
 
 @section('content')
+    @if($flash = session('message'))
+        <p>{{ $flash }}</p>
+    @endif
     <h1>products</h1>
     @livewire('product-search')
 
