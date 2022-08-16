@@ -32,7 +32,9 @@ Route::get('/user', function () {
 Route::get('/products/create', [ProductController::class, 'create']);
 Route::post('/products/store', [ProductController::class, 'store']);
 
+
 Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/favourites', [ProductController::class, "favourites"]);
 Route::get('/products/{product}', [ProductController::class, 'show']);
 Route::get('/products/category/{category}', [ProductController::class, 'byCategory']);
 Route::delete('/products/destroy/{id}', [ProductController::class, 'destroy']);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Favourite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,6 +20,12 @@ class ProductController extends Controller
     public function show(\App\Models\Product $product){  
         $data['product'] = $product;
         return view('products/show', $data);
+    }
+
+    public function favourites(){
+        $favourites = Favourite::where('user_id', Auth::id())->get();
+        $data['favourites'] = $favourites;
+        return view('products/favourites', $data);
     }
 
     public function byCategory(\App\Models\ProductCategory $category){
@@ -55,6 +62,8 @@ class ProductController extends Controller
         $product->product_categories_id = $request->input('category');
         $product->user_id = $userId;
         $product->save();
+
+        
 
         $request->session()->flash('message', 'Your product is now for sale');
         $id = $product->id;

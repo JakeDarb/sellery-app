@@ -21,6 +21,8 @@
     <h3>Email</h3>
     <p>{{$product -> user -> email}}</p>
 
+    @livewire('favourites', ['product_id' => $product->id])
+
     <form method="post" action="/products/destroy/{{ $product -> id }}">
         @csrf
         <input type="hidden" name="_method" value="DELETE">
