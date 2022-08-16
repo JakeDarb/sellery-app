@@ -23,6 +23,14 @@
             <label for="price">price</label>
             <input type="price" name="price" class="form-control" id="price" value="{{ old('price') }}">
         </div>
+        <div>
+        <label for="category">Choose a category:</label>
+        <select name="category" id="category">
+            @foreach($productCategories as $category)
+            <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach
+        </select>
+        </div>
         <button type="submit" class="btn btn-primary">add</button>
     </form>
 @endsection

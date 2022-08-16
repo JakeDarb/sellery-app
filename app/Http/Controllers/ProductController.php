@@ -20,8 +20,11 @@ class ProductController extends Controller
     }
 
     public function create(){
+        // GET CATEGORY INFO
+        $productCategories = \DB::table('product_categories')->get();
+        $data['productCategories'] = $productCategories;
         // SHOW FORM
-        return view('products/create');
+        return view('products/create', $data);
     }
 
     public function store(Request $request){
@@ -31,7 +34,8 @@ class ProductController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'desc' => 'required',
-            'price' => 'required'
+            'price' => 'required',
+            'category' => 'required'
         ]);
 
         // INSERT IN DB
@@ -39,6 +43,7 @@ class ProductController extends Controller
         $product->name = $request->input('name');
         $product->description = $request->input('desc');
         $product->price = $request->input('price');
+        $product->product_categories_id = $request->input('category');
         $product->user_id = $userId;
         $product->save();
 
