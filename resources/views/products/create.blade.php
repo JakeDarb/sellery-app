@@ -19,6 +19,10 @@
             <label for="desc">desc</label>
             <textarea name="desc" id="desc" cols="30" rows="10">{{ old('desc') }}</textarea>
         </div>
+        <div>
+            <label for="files">Pictures</label>
+            <input type="file" name="files[]" accept='.png, .jpg, .jpeg, .pfd, .doc, .docx, .ppt' multiple>
+        </div>
         <div class="form-group">
             <label for="price">price</label>
             <input type="price" name="price" class="form-control" id="price" value="{{ old('price') }}">

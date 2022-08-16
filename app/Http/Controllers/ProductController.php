@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Favourite;
+use App\Models\ProductAttachements;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -63,7 +64,20 @@ class ProductController extends Controller
         $product->user_id = $userId;
         $product->save();
 
-        
+        if(!empty($request->file('files'))){
+            foreach($request->file('files') as $file){
+                $t=time();
+                $imageSrc = date("Y-m-d").$t.'.'.$file->extension();
+                $file->move(public_path('attachements'), $imageSrc);
+
+                //attachment opslaan in database
+                $newAttach = new ProductAttachements();
+                $newAttach->source = $imageSrc;
+                $newAttach->product_id = $product->id;
+                $newAttach->save();
+                sleep(1);
+            }
+        }
 
         $request->session()->flash('message', 'Your product is now for sale');
         $id = $product->id;
@@ -73,11 +87,17 @@ class ProductController extends Controller
 
     public function destroy($id){
         $product = \App\Models\Product::where('id', $id)->first();
+        $productPics = \App\Models\ProductAttachements::where('product_id', $id)->get();
         if(\Auth::user()->cannot('delete', $product)){
             abort(403);
         }
 
         $product->delete();
+        foreach($productPics as $productPic){
+            $productPic->delete();    
+        }
+        
+
         return redirect('/products');
     }
 }

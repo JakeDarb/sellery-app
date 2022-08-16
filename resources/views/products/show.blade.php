@@ -5,6 +5,9 @@
         <p>{{ $flash }}</p>
     @endif
     <h1>{{$product -> name}}</h1>
+    @foreach($product -> productAttachements as $attachement)
+    <img src="/attachements/{{ $attachement->source }}" alt="product pic">
+    @endforeach
 
     <h2>Product information</h2>
     <h3>Price</h3>
