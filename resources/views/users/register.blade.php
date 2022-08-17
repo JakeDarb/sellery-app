@@ -1,7 +1,7 @@
 @extends('layouts/app')
 
 @section('content')
-    <form method="post" action="{{ url('/register') }}">
+    <form method="post" action="{{ url('/register') }}" enctype="multipart/form-data">
         @csrf
         <h2>register</h2>
         <div class="form-group">
@@ -15,6 +15,10 @@
         <div class="form-group">
             <label for="password">Password</label>
             <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+        </div>
+        <div>
+            <label for="file">Picture</label>
+            <input type="file" name="file" accept='.png, .jpg, .jpeg'>
         </div>
         <button type="submit" class="btn btn-primary">Sign up</button>
     </form>

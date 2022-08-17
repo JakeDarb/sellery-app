@@ -23,8 +23,19 @@ class UserController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password'));
+        $file = $request->file('file');
+        
+        if(!empty($file)){
+            $t=time();
+            $imageSrc = date("Y-m-d").$t.'-user'.'.'.$file->extension();
+            $file->move(public_path('attachements/users'), $imageSrc);
+
+            $user->picture_source = $imageSrc;
+        }else{
+            $user->picture_source = '';
+        }
         $user->save();
-        echo "signup ok";
+        return view('users/login');
     }
 
     public function login(){

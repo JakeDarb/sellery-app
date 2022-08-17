@@ -5,10 +5,11 @@
         <p>{{ $flash }}</p>
     @endif
     <h1>{{$product -> name}}</h1>
-    @foreach($product -> productAttachements as $attachement)
-    <img src="/attachements/{{ $attachement->source }}" alt="product pic">
-    @endforeach
-
+    @if($product -> productAttachements)
+        @foreach($product -> productAttachements as $attachement)
+        <img src="/attachements/{{ $attachement->source }}" alt="product pic">
+        @endforeach
+    @endif
     <h2>Product information</h2>
     <h3>Price</h3>
     <p>{{$product -> price}}</p>
@@ -19,6 +20,9 @@
 
 
     <h2>Seller information</h2>
+    @if(!empty($product -> user -> picture_source))
+        <img src="/attachements/users/{{ $product -> user -> picture_source }}" alt="">
+    @endif
     <h3>Name</h3>
     <p>{{$product -> user -> name}}</p>
     <h3>Email</h3>
